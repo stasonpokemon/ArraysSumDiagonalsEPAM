@@ -24,18 +24,6 @@ public class Runner {
         System.out.println("Задайте размерность матрицы...");
         do {
             try {
-                System.out.println("Введите количество столбцов...");
-                arrayColumnSize = scanner.nextInt();
-                arrayColumnSizeValid = false;
-            } catch (InputMismatchException e) {
-                System.out.println("Введите числовое значение!!!");
-                scanner.nextLine();
-                System.out.println("Exception: " + e);
-            }
-        } while (arrayColumnSizeValid);
-
-        do {
-            try {
                 System.out.println("Введите количество строк...");
                 arrayLineSize = scanner.nextInt();
                 arrayLineSizeValid = false;
@@ -46,8 +34,19 @@ public class Runner {
             }
         } while (arrayLineSizeValid);
 
+        do {
+            try {
+                System.out.println("Введите количество столбцов...");
+                arrayColumnSize = scanner.nextInt();
+                arrayColumnSizeValid = false;
+            } catch (InputMismatchException e) {
+                System.out.println("Введите числовое значение!!!");
+                scanner.nextLine();
+                System.out.println("Exception: " + e);
+            }
+        } while (arrayColumnSizeValid);
 
-        int[][] array = new int[arrayColumnSize][arrayLineSize];
+        int[][] array = new int[arrayLineSize][arrayColumnSize];
         return array;
     }
 
@@ -82,15 +81,15 @@ public class Runner {
         int operationValue = (array.length * 2) - 1;
         int[] finalArray = new int[operationValue];
         int numPosition = 0;
-        for (int j = array.length - 1; j >= 0; j--) {
-            for (int k = 0; k < array.length - j; k++) {
-                finalArray[numPosition] += array[k][j + k];
+        for (int i = array.length - 1; i >= 0; i--) {
+            for (int j = 0; j < array.length - i; j++) {
+                finalArray[numPosition] += array[j][i + j];
             }
             numPosition++;
         }
         for (int i = 1 ; i <= array.length - 1; i++) {
-            for (int j = 0; j < array.length - i; j++) {
-                finalArray[numPosition] += array[j][i+j];
+            for (int j = i; j <= array.length - 1; j++) {
+                finalArray[numPosition] += array[j][j-i];
             }
             numPosition++;
         }
